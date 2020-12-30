@@ -5,27 +5,22 @@ import '../Common.css';
 import './Admin.css';
 export default function Admin() {
     let renderPortal = false;
-    function addPoll()
-    {
-        alert("hey..");
+    if (sessionStorage.getItem("email") != null && sessionStorage.getItem("password") != null && sessionStorage.getItem("role") === "admin") {
+        renderPortal = true;
     }
-    if(sessionStorage.getItem("email") != null && sessionStorage.getItem("password") != null && sessionStorage.getItem("role") ==="admin")
-    {
-        renderPortal=true;
-    }
-    if(renderPortal) {
+    if (renderPortal) {
         return (
             <div className="center">
-                    <div >Welcome to Admin portal</div>
-                    <div className="right"> Create a poll! </div><span onClick={addPoll}>click here</span>
+                <div >Welcome to Admin portal</div>
+                <div className="right"> Create a poll! </div><span>click here</span>
             </div>
         );
-       
+
     }
     else {
         return (
             <>
-             <SignIn />
+                <SignIn />
             </>
         );
     }

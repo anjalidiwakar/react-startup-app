@@ -10,12 +10,11 @@ function Button(props) {
     return <button onClick={handleClick}> {props.role}</button>
 }
 export default function User() {
-    let renderUserPortal=false;
-    if(sessionStorage.getItem("email") !=null && sessionStorage.getItem("password") != null && sessionStorage.getItem("role") ==="User")
-    {
-        renderUserPortal=true;;
+    let renderUserPortal = false;
+    if (sessionStorage.getItem("email") != null && sessionStorage.getItem("password") != null && sessionStorage.getItem("role") === "User") {
+        renderUserPortal = true;;
     }
-    if(renderUserPortal) {
+    if (renderUserPortal) {
         return (
             <>
                 <div>
@@ -24,12 +23,12 @@ export default function User() {
                 </div>
             </>
         );
-        
+
     }
     else {
         return (
             <>
-             <SignIn />
+                <SignIn />
             </>
         );
     }

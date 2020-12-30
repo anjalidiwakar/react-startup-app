@@ -6,7 +6,7 @@ import SignIn from '../signIn/SignIn';
 import SignInHere from '../signIn/SignInHere';
 import Users from '../models/User';
 
-export default function SignUp() {  
+export default function SignUp() {
     const [firstName, setFirstName] = useState("");
     const [lastName, setlastName] = useState("");
     const [email, setemail] = useState("");

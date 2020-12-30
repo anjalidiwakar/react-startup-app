@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import SignUp from '../SignUp/Signup';
 import "./SignIn.css";
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Admin from '../admin/Admin';
 
 export default function Login() {
@@ -17,32 +17,26 @@ export default function Login() {
     }
     function handleSubmit() {
         let validationError = ""
-        let loginSuccessfully = false;
         let users = localStorage.getItem("users");
         if (users) {
             users = JSON.parse(users);
         }
-       // userArray.push(users);
-        let findFlag = false;
-        let user= users.find(t=>t.email===email);
-        if(user)
-        {
-            if(user.password===password)
-            {
+        let user = users.find(t => t.email === email);
+        if (user) {
+            if (user.password === password) {
                 setRenderState("SignedIn");
                 sessionStorage.setItem("email", email);
                 sessionStorage.setItem("password", password);
                 sessionStorage.setItem("role", user.role);
                 window.location.href = "http://localhost:3000/" + user.role;
             }
-            else
-            {
+            else {
                 validationError = "Password is incorrect, please try again.";
             }
         }
         else
             validationError = "No user found with this email, plrease try with another one";
-        
+
     }
     const handleSignUp = () => { setRenderState("SignUp") }
 
