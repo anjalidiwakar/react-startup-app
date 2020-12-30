@@ -1,0 +1,19 @@
+.page-content
+{
+    align-self: center;
+}
+
+.center {
+    margin: auto;
+    width: 60%;
+    padding: 20px;
+    color:black;
+  }
+
+.right {
+    /* margin: auto;
+    width: 60%;
+    padding: 20px; */
+    color:black;
+    align-items: flex-end;
+  }
