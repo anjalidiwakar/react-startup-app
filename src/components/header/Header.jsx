@@ -14,7 +14,6 @@ export default function Header(props) {
     if (sessionStorage.getItem("email") != null) {
 
         isUserLoggedIn = true;
-        alert(isUserLoggedIn);
         user = users.find(u => u.email === sessionStorage.getItem("email"));
     }
     function signOutUser() {
