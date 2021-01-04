@@ -1,22 +1,53 @@
 import { render } from '@testing-library/react';
-import React from 'react';
+import React, { useState } from 'react';
 import '../Common.css';
 import SignIn from '../signIn/SignIn';
+import SignUp from '../SignUp/Signup';
+import User from "../user/User";
 
-function NavigateToPortal() {
-  alert('hey');
-}
-
-function Button(props) {
-  const handleClick = () => NavigateToPortal();
-  return <button onClick={handleClick}> {props.role}</button>
-}
-export default function HomePage() {
-  return (
+export default function HomePage(props) {
+  let userExistsOrNot = sessionStorage.getItem("email");
+  const [userSignedIn, setUserSignedIn] = useState(false);
+  if(sessionStorage.getItem("email") != null)
+  {
+      setUserSignedIn(true);
+  }
+  
+  if(props.signinToken)
+  {
+    return (
       <div className="wrapper">
         Welcome to Home Page
-        <SignIn />
+        <SignIn setUserToke={props.setUserToken}/>
       </div>
     );
+  }
+  else if(props.signupToken)
+  {
+    return (
+      <div className="wrapper">
+        Welcome to Home Page
+        <SignUp />
+      </div>
+    );
+  }
+  else if(userSignedIn)
+  {
+    return (
+      <div className="wrapper">
+       
+        <User />
+      </div>
+    );
+  }
+  else{
+    return (
+      <div className="wrapper">
+        Welcome to Home Page
+        
+      </div>
+    );
+  }
+  
   
 }

@@ -51,64 +51,91 @@ export default function SignUp() {
         return (
             <div className="signUp-wrapper">
                 <p> Please Sign Up</p>
-                <Form onSubmit={handleClick}>
-                    <Form.Group controlId='firstName'>
-                        <Form.Label>First Name</Form.Label>
-                        <Form.Control
-                            required
-                            autoFocus
-                            value={firstName}
-                            onChange={(v) => setFirstName(v.target.value)}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId='lastName'>
-                        <Form.Label>Last Name</Form.Label>
-                        <Form.Control
-                            value={lastName}
-                            onChange={(v) => setlastName(v.target.value)}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId='email'>
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control
-                            required
-                            type="email"
-                            value={email}
-                            onChange={(v) => setemail(v.target.value)}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId='confirmEmail'>
-                        <Form.Label>Confirm Email</Form.Label>
-                        <Form.Control
-                            required
-                            type="confirmEmail"
-                            value={confirmEmail}
-                            onChange={(v) => setconfirmEmail(v.target.value)}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId='password'>
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control
-                            required
-                            type="password"
-                            value={password}
-                            onChange={(v) => setpassword(v.target.value)}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId='confirmPassword'>
-                        <Form.Label>Confirm Password</Form.Label>
-                        <Form.Control
-                            required
-                            type="password"
-                            value={confirmPassword}
-                            onChange={(v) => setconfirmPassword(v.target.value)}
-                        />
-                    </Form.Group>
+<div >
+                <div className="field">
+                <div className="field-label is-small">
+                        <label className="label has-text-left">First Name</label>
+                    </div>
+                    <div className="field-body">
+                        <div className="field">
+                            <p className="control">
+                                <input className="input is-primary" type="text" value={firstName} onChange={(v) => setFirstName(v.target.value)}
+                                    placeholder="Enter first name"></input>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div className="field">
+                <div className="field-label is-small">
+                        <label className="label has-text-left">Last Name</label>
+                    </div>
+                    <div className="field-body">
+                        <div className="field">
+                            <p className="control">
+                                <input className="input is-primary" type="text" value={lastName} onChange={(v) => setlastName(v.target.value)}
+                                    placeholder="Enter last name"></input>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div className="field">
+                <div className="field-label is-small">
+                        <label className="label has-text-left">Email</label>
+                    </div>
+                    <div className="field-body">
+                        <div className="field">
+                            <p className="control">
+                                <input className="input is-primary" type="email" value={email} onChange={(v) => setemail(v.target.value)}
+                                    placeholder="Enter email"></input>
+                                <p className="help">eg: ex@example.com</p>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div className="field">
+                <div className="field-label is-small">
+                        <label className="label has-text-left">Confirm Email</label>
+                    </div>
+                    <div className="field-body">
+                        <div className="field">
+                            <p className="control">
+                                <input className="input is-primary" type="email" value={confirmEmail} onChange={(v) => setconfirmEmail(v.target.value)}
+                                    placeholder="Please confirm email"></input>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div className="field">
+                <div className="field-label is-small">
+                        <label className="label has-text-left">Password</label>
+                    </div>
+                    <div className="field-body">
+                        <div className="field">
+                            <p className="control">
+                                <input className="input is-primary" type="password" value={password} onChange={(v) => setpassword(v.target.value)}
+                                    placeholder="Enter password"></input>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div className="field">
+                    <div className="field-label is-small">
+                        <label className="label has-text-left">Confirm Password</label>
+                    </div>
+                    <div className="field-body">
+                        <div className="field">
+                            <p className="control">
+                                <input className="input is-primary" type="password" value={confirmPassword} onChange={(v) => setconfirmPassword(v.target.value)}
+                                    placeholder="Please confirm password"></input>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+</div>
+                <Button className="buttons button is-primary" type="submit" onClick={handleClick}>Submit</Button>
+                <p> Already have an account? Please Sign in here</p>
+                <Button className="buttons button is-primary" onClick={handleSignIn}>SignIn</Button>
 
-                    <Button type="submit">Submit</Button>
-                    <p> Already have an account? Please Sign in here</p>
-                    <Button onClick={handleSignIn}>SignIn</Button>
-                </Form>
             </div>
         );
     }
@@ -123,8 +150,8 @@ export default function SignUp() {
     else if (renderState === "SignedUp") {
         return (
             <div className="signUp-wrapper">
-                Your account is successfully created. Please sign in here.
-                <SignInHere />
+                Your account is successfully created. Please sign in.
+                {/* <SignInHere /> */}
             </div>
         )
     }

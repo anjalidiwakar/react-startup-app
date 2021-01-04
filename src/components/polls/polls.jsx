@@ -30,7 +30,6 @@ export default function Polls() {
     // this.setState({
     //   pollAnswers: newPollAnswers
     // })
-    alert("hello");
   }
  
   //render () {

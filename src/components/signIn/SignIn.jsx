@@ -7,7 +7,7 @@ import "./SignIn.css";
 import { Link } from 'react-router-dom';
 import Admin from '../admin/Admin';
 
-export default function Login() {
+export default function Login(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [renderState, setRenderState] = useState("");
@@ -28,7 +28,8 @@ export default function Login() {
                 sessionStorage.setItem("email", email);
                 sessionStorage.setItem("password", password);
                 sessionStorage.setItem("role", user.role);
-                window.location.href = "http://localhost:3000/" + user.role;
+                props.setUserToken(true);
+               // window.location.href = "http://localhost:3000/" + user.role;
             }
             else {
                 validationError = "Password is incorrect, please try again.";
@@ -42,35 +43,33 @@ export default function Login() {
 
     if (renderState === "") {
         return (
+            <>
             <div className="login-wrapper">
                 <p>Please Sign In</p>
-                <Form onSubmit={handleSubmit}>
-                    <Form.Group size="lg" controlId="email">
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control
-                            autoFocus
-                            required
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                    </Form.Group>
-                    <Form.Group size="lg" controlId="password">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control
-                            required
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </Form.Group>
-                    <Button block size="lg" type="submit" disabled={!validateForm()}>
-                        Login
+                <div class="field">
+                    <label class="label is-large">Email</label>
+                    <div class="control">
+                        <input class="input is-normal" type="email" value={email}
+                            onChange={(e) => setEmail(e.target.value)} placeholder="Enter email" />
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label is-normal">Password</label>
+                    <div class="control">
+                        <input class="input is-normal" type="password" value={password}
+                            onChange={(e) => setPassword(e.target.value)} placeholder="Enter password" />
+                    </div>
+                </div>
+
+                <Button className="buttons button is-primary" onClick={handleSubmit} type="submit" disabled={!validateForm()}>
+                    Login
             </Button>
-                    <p> Do not have an account? Please Sign Up here</p>
-                    <Button onClick={handleSignUp}>SignUp</Button>
-                </Form>
+                <p> Do not have an account? Please Sign Up here</p>
+                <Button className="buttons button is-primary" onClick={handleSignUp}>SignUp</Button>
+                
             </div>
+            
+    </>
         );
     }
     else if (renderState === "SignUp") {

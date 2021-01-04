@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import SignIn from '../signIn/SignIn';
 
 function NavigateToPortal() {
-    alert('hey');
-
 }
 function Button(props) {
     const handleClick = () => NavigateToPortal();
