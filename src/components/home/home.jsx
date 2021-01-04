@@ -35,7 +35,6 @@ export default function HomePage(props) {
   {
     return (
       <div className="wrapper">
-       
         <User />
       </div>
     );

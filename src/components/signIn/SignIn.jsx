@@ -1,11 +1,8 @@
 
 import React, { useState } from "react";
-import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import SignUp from '../SignUp/Signup';
 import "./SignIn.css";
-import { Link } from 'react-router-dom';
-import Admin from '../admin/Admin';
 
 export default function Login(props) {
     const [email, setEmail] = useState("");
@@ -29,7 +26,6 @@ export default function Login(props) {
                 sessionStorage.setItem("password", password);
                 sessionStorage.setItem("role", user.role);
                 props.setUserToken(true);
-               // window.location.href = "http://localhost:3000/" + user.role;
             }
             else {
                 validationError = "Password is incorrect, please try again.";
@@ -43,7 +39,6 @@ export default function Login(props) {
 
     if (renderState === "") {
         return (
-            <>
             <div className="login-wrapper">
                 <p>Please Sign In</p>
                 <div class="field">
@@ -68,8 +63,6 @@ export default function Login(props) {
                 <Button className="buttons button is-primary" onClick={handleSignUp}>SignUp</Button>
                 
             </div>
-            
-    </>
         );
     }
     else if (renderState === "SignUp") {

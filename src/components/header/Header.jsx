@@ -12,7 +12,7 @@ export default function Header(props) {
         users = JSON.parse(users);
     }
     if (sessionStorage.getItem("email") != null) {
-       
+
         isUserLoggedIn = true;
         alert(isUserLoggedIn);
         user = users.find(u => u.email === sessionStorage.getItem("email"));
@@ -106,21 +106,21 @@ export default function Header(props) {
                         <div class="navbar-item has-dropdown is-hoverable">
                             <a class="navbar-link">
                                 More
-</a>
+                            </a>
                             <div class="navbar-dropdown">
                                 <a class="navbar-item">
                                     About
-  </a>
+                                </a>
                                 <a class="navbar-item">
                                     Jobs
-  </a>
+                                </a>
                                 <a class="navbar-item">
                                     Contact
-  </a>
+                                </a>
                                 <hr class="navbar-divider" />
                                 <a class="navbar-item">
                                     Report an issue
-  </a>
+                                </a>
                             </div>
                         </div>
                     </div>
