@@ -21,11 +21,11 @@ export default function Login(props) {
         let user = users.find(t => t.email === email);
         if (user) {
             if (user.password === password) {
-                setRenderState("SignedIn");
+                //setRenderState("SignedIn");
                 sessionStorage.setItem("email", email);
                 sessionStorage.setItem("password", password);
                 sessionStorage.setItem("role", user.role);
-                props.setUserToken(true);
+                // props.setUserToken(true);
             }
             else {
                 validationError = "Password is incorrect, please try again.";
@@ -61,7 +61,7 @@ export default function Login(props) {
             </Button>
                 <p> Do not have an account? Please Sign Up here</p>
                 <Button className="buttons button is-primary" onClick={handleSignUp}>SignUp</Button>
-                
+
             </div>
         );
     }

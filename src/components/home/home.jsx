@@ -4,26 +4,25 @@ import '../Common.css';
 import SignIn from '../signIn/SignIn';
 import SignUp from '../SignUp/Signup';
 import User from "../user/User";
+import { useSelector } from 'react-redux'
 
 export default function HomePage(props) {
   let userExistsOrNot = sessionStorage.getItem("email");
-  const [userSignedIn, setUserSignedIn] = useState(false);
-  if(sessionStorage.getItem("email") != null)
-  {
-      setUserSignedIn(true);
+  const userSignedIn = false;
+  if (sessionStorage.getItem("email") != null) {
+    userSignedIn = true;
   }
-  
-  if(props.signinToken)
-  {
+  let signinToken = useSelector((state) => state.signIn.state_SignInForm)
+  let signupToken = useSelector((state) => state.signUp.state_SignUpForm)
+  if (signinToken) {
     return (
       <div className="wrapper">
         Welcome to Home Page
-        <SignIn setUserToke={props.setUserToken}/>
+        <SignIn />
       </div>
     );
   }
-  else if(props.signupToken)
-  {
+  else if (signupToken) {
     return (
       <div className="wrapper">
         Welcome to Home Page
@@ -31,22 +30,19 @@ export default function HomePage(props) {
       </div>
     );
   }
-  else if(userSignedIn)
-  {
+  else if (userSignedIn) {
     return (
       <div className="wrapper">
         <User />
       </div>
     );
   }
-  else{
+  else {
     return (
       <div className="wrapper">
-        Welcome to Home Page
-        
+        Welcome to Home Page {signupToken}
       </div>
     );
   }
-  
-  
+
 }

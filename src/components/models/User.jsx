@@ -1,4 +1,4 @@
-export default class Users{
+export default class Users {
     firstName;
     lastName;
     email;
@@ -6,33 +6,26 @@ export default class Users{
     password;
     confirmedPassword;
     role;
-    constructor() {}
-    setFirstName(firstName)
-    {
-        this.firstName=firstName;
+    constructor() { }
+    setFirstName(firstName) {
+        this.firstName = firstName;
     }
-    setLastName(lastName)
-    {
-        this.lastName=lastName;
+    setLastName(lastName) {
+        this.lastName = lastName;
     }
-    setEmail(email)
-    {
-        this.email=email;
+    setEmail(email) {
+        this.email = email;
     }
-    setConfirmedEmail(confirmedEmail)
-    {
-        this.confirmedEmail=confirmedEmail;
+    setConfirmedEmail(confirmedEmail) {
+        this.confirmedEmail = confirmedEmail;
     }
-    setPassword(password)
-    {
-        this.password=password;
+    setPassword(password) {
+        this.password = password;
     }
-    setConfirmedPassword(confirmedPassword)
-    {
-        this.confirmedPassword=confirmedPassword;
+    setConfirmedPassword(confirmedPassword) {
+        this.confirmedPassword = confirmedPassword;
     }
-    setRole()
-    {
-        this.role="User";
+    setRole() {
+        this.role = "User";
     }
 }

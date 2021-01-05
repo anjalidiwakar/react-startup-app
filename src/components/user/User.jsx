@@ -14,10 +14,10 @@ export default function User() {
     }
     if (renderUserPortal) {
         return (
-                <div>
-                    <div>Welcome to User portal</div>
-                    <div> Check out active polls!</div>
-                </div>
+            <div>
+                <div>Welcome to User portal</div>
+                <div> Check out active polls!</div>
+            </div>
         );
 
     }
