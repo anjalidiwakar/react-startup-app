@@ -1,14 +1,15 @@
 import { render } from '@testing-library/react';
-import React, { useState } from 'react';
+import React from 'react';
 import '../Common.css';
 import SignIn from '../signIn/SignIn';
 import SignUp from '../SignUp/Signup';
 import User from "../user/User";
 import { useSelector } from 'react-redux'
+import { signOutUser } from '../../redux/signOut/signOutAction';
 
 export default function HomePage(props) {
   let userExistsOrNot = sessionStorage.getItem("email");
-  const userSignedIn = false;
+  let userSignedIn = false;
   if (sessionStorage.getItem("email") != null) {
     userSignedIn = true;
   }
@@ -44,5 +45,4 @@ export default function HomePage(props) {
       </div>
     );
   }
-
 }

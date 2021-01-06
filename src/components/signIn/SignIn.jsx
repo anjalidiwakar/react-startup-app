@@ -1,14 +1,17 @@
 
 import React, { useState } from "react";
+import { connect } from 'react-redux';
 import Button from "react-bootstrap/Button";
 import SignUp from '../SignUp/Signup';
 import "./SignIn.css";
+import { useHistory } from 'react-router-dom'
+import { signOutUser } from '../../redux/signOut/signOutAction'
 
-export default function Login(props) {
+function SignIn(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [renderState, setRenderState] = useState("");
-
+    const history = useHistory();
     function validateForm() {
         return email.length > 0 && password.length > 0;
     }
@@ -21,11 +24,14 @@ export default function Login(props) {
         let user = users.find(t => t.email === email);
         if (user) {
             if (user.password === password) {
-                //setRenderState("SignedIn");
+                props.signOutUser(false);
                 sessionStorage.setItem("email", email);
                 sessionStorage.setItem("password", password);
-                sessionStorage.setItem("role", user.role);
-                // props.setUserToken(true);
+                if (email ==="anjali.diwakar@talentica.com")
+                    sessionStorage.setItem("role", 'admin');
+                else
+                    sessionStorage.setItem("role", user.role);
+                history.push('/' + sessionStorage.getItem("role"))
             }
             else {
                 validationError = "Password is incorrect, please try again.";
@@ -41,23 +47,23 @@ export default function Login(props) {
         return (
             <div className="login-wrapper">
                 <p>Please Sign In</p>
-                <div class="field">
-                    <label class="label is-large">Email</label>
-                    <div class="control">
-                        <input class="input is-normal" type="email" value={email}
+                <div className="field">
+                    <label className="label is-large">Email</label>
+                    <div className="control">
+                        <input className="input is-normal" type="email" value={email}
                             onChange={(e) => setEmail(e.target.value)} placeholder="Enter email" />
                     </div>
                 </div>
-                <div class="field">
-                    <label class="label is-normal">Password</label>
-                    <div class="control">
-                        <input class="input is-normal" type="password" value={password}
+                <div className="field">
+                    <label className="label is-normal">Password</label>
+                    <div className="control">
+                        <input className="input is-normal" type="password" value={password}
                             onChange={(e) => setPassword(e.target.value)} placeholder="Enter password" />
                     </div>
                 </div>
 
                 <Button className="buttons button is-primary" onClick={handleSubmit} type="submit" disabled={!validateForm()}>
-                    Login
+                    Sign in
             </Button>
                 <p> Do not have an account? Please Sign Up here</p>
                 <Button className="buttons button is-primary" onClick={handleSignUp}>SignUp</Button>
@@ -73,3 +79,11 @@ export default function Login(props) {
         );
     }
 }
+
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        signOutUser : (state) => dispatch(signOutUser(state))
+    }
+}
+export default connect(undefined, mapDispatchToProps)(SignIn)

@@ -1,5 +1,7 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import SignIn from '../signIn/SignIn';
+import SignUp from '../SignUp/Signup';
 
 function NavigateToPortal() {
 }
@@ -8,11 +10,9 @@ function Button(props) {
     return <button onClick={handleClick}> {props.role}</button>
 }
 export default function User() {
-    let renderUserPortal = false;
-    if (sessionStorage.getItem("email") != null && sessionStorage.getItem("password") != null && sessionStorage.getItem("role") === "User") {
-        renderUserPortal = true;;
-    }
-    if (renderUserPortal) {
+    const userLoggedOut = useSelector((state) => state.signOut.state_SignOut)
+    const signUpForm = useSelector((state) => state.signUp.state_SignUpForm)
+    if (userLoggedOut===false) {
         return (
             <div>
                 <div>Welcome to User portal</div>
@@ -22,11 +22,19 @@ export default function User() {
 
     }
     else {
-        return (
+        if (signUpForm) {
+          return (
             <>
-                <SignIn />
+              <SignUp />
             </>
-        );
-    }
+          );
+        }
+        else
+          return (
+            <>
+              <SignIn />
+            </>
+          );
+      }
 }
 
