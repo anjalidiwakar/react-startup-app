@@ -27,7 +27,7 @@ function SignIn(props) {
                 props.signOutUser(false);
                 sessionStorage.setItem("email", email);
                 sessionStorage.setItem("password", password);
-                if (email ==="anjali.diwakar@talentica.com")
+                if (email === "anjali.diwakar@talentica.com")
                     sessionStorage.setItem("role", 'admin');
                 else
                     sessionStorage.setItem("role", user.role);
@@ -83,7 +83,7 @@ function SignIn(props) {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        signOutUser : (state) => dispatch(signOutUser(state))
+        signOutUser: (state) => dispatch(signOutUser(state))
     }
 }
 export default connect(undefined, mapDispatchToProps)(SignIn)

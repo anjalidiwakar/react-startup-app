@@ -5,10 +5,8 @@ import SignIn from '../signIn/SignIn';
 import SignUp from '../SignUp/Signup';
 import User from "../user/User";
 import { useSelector } from 'react-redux'
-import { signOutUser } from '../../redux/signOut/signOutAction';
 
 export default function HomePage(props) {
-  let userExistsOrNot = sessionStorage.getItem("email");
   let userSignedIn = false;
   if (sessionStorage.getItem("email") != null) {
     userSignedIn = true;

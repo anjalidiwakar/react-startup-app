@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import PrimaryButton from '../buttons/PrimaryButton'
 import '../Common.css';
 import './Header.css';
 import { showSignInForm } from '../../redux/signIn/signInAction'
@@ -17,24 +17,15 @@ function Header(props) {
         sessionStorage.removeItem("email");
         props.signOutUser(true);
     }
-    function signInSignUpHandle(handleProp) {
-        if (handleProp === 'Sign up') {
-            props.showSignIn(false);
-            props.showSignUp(true);
-        }
-        else {
-            props.showSignUp(false);
-            props.showSignIn(true);
-        }
+    function signUpHandle() {
+        props.showSignIn(false);
+        props.showSignUp(true);
     }
-    function Button(buttonProp) {
-        return (
-            <a className="button is-primary" onClick={() => signInSignUpHandle(buttonProp.buttonText)}>
-                {buttonProp.buttonText}
-            </a>
-        )
-
+    function signInHandle() {
+        props.showSignUp(false);
+        props.showSignIn(true);
     }
+   
     if (userSignedOut === false) {
         user = users.find(u => u.email === sessionStorage.getItem("email"));
         return (
@@ -129,8 +120,8 @@ function Header(props) {
                             <div className="navbar-item">
                                 <div className="buttons">
                                     <div> {props.showForm}</div>
-                                    <Button buttonText={'Sign up'} />
-                                    <Button buttonText={'Sign in'} />
+                                    <PrimaryButton text={'Sign up'} callBack={signUpHandle} />
+                                    <PrimaryButton text={'Sign in'} callBack={signInHandle} />
                                 </div>
                             </div>
                         </div>
