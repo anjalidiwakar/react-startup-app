@@ -17,22 +17,19 @@ function PollOption() {
 }
 
 function PollForm(props) {
-    const [title, setTitle] = useState("");
+    const [polltitle, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [answer1, setAnswer1] = useState("");
-    const [answer2, setAnswer2] = useState("");
-    const [answer3, setAnswer3] = useState("");
+    const [inputList, setInputList] = useState([{ value: "", count: 0, id:0 }, { value: "", count: 0, id:0 }]);
     const [showAdminPortal, setShowAdminPortal] = useState(false);
     function SubmitPollForm() {
         let pollList = localStorage.getItem("polls");
         pollList !== null ? pollList = JSON.parse(pollList) : pollList = [];
         let poll = new Poll();
-        poll.setTitle(title);
+        poll.setTitle(polltitle);
         poll.setDescription(description);
-        poll.setAnswer1(answer1);
-        poll.setAnswer2(answer2);
-        poll.setAnswer3(answer3);
+        poll.setAnswer(inputList);
         poll.setPollId(pollList.length);
+        poll.setPollStatus('Active');
         pollList.push(poll);
         localStorage.setItem("polls", JSON.stringify(pollList), false)
         setShowAdminPortal(true);
@@ -40,18 +37,27 @@ function PollForm(props) {
     function cancelHandler() {
         setShowAdminPortal(true);
     }
+    const handleAddClick = () => {
+        setInputList([...inputList, { value: "", count: 0 }]);
+    };
+    const handleInputChange = (e, index) => {
+        const list = [...inputList];
+        list[index].value = e.target.value;
+        list[index].id = list.length;
+        setInputList(list);
+    };
     function CreatePollForm() {
         return (
             <>
                 <div className="conatiner is-poll">
                     <div className="box is-brand-box">
-                        <h1 className="title is-size-3-tablet is-size-4-mobile has-texted-centered">
+                        <h1 className="polltitle is-size-3-tablet is-size-4-mobile has-texted-centered">
                             Create a Poll
                     </h1>
                         <form>
                             <div className="field">
                                 <label className="label"> Title </label>
-                                <input className="input is-primary" value={title} onChange={(v) => setTitle(v.target.value)} placeholder="Provide title here" required />
+                                <input className="input is-primary" value={polltitle} onChange={(v) => setTitle(v.target.value)} placeholder="Provide polltitle here" required />
                             </div>
                             <div class="field">
                                 <label class="label">Description (optional)</label>
@@ -60,28 +66,24 @@ function PollForm(props) {
                             </div>
                             <div className="field">
                                 <label className="label"> Options </label>
-                                <a onClick={AddPollOptionHandler}> Add Option </a>
-                                <div>
 
-                                    <div className="field">
-                                        <input className="input is-primary" value={answer1} onChange={(v) => setAnswer1(v.target.value)}
-                                            placeholder="Provide first option" required />
-                                    </div>
-                                    <div className="field">
-                                        <input className="input is-primary" value={answer2} onChange={(v) => setAnswer2(v.target.value)}
-                                            placeholder="Provide second option" required />
-                                    </div>
-                                    <div className="field">
-                                        <input className="input is-primary" value={answer3} onChange={(v) => setAnswer3(v.target.value)}
-                                            placeholder="Provide third option" required />
-                                    </div>
-                                </div>
+                                {inputList.map((x, i) => {
+                                    return (
+                                        <>
+                                            <div className="field">
+                                                <input className="input is-primary" value={x.value} onChange={(v) => handleInputChange(v, i)}
+                                                    placeholder="Provide option" required />
+                                            </div>
+                                        </>
+                                    );
+                                })}<a onClick={handleAddClick}> Add Option </a>
                             </div>
                             <PrimaryButton text={'Submit'} callBack={SubmitPollForm} />
                             <LightButton text={'Cancel'} callBack={cancelHandler} />
                         </form>
                     </div>
                 </div>
+
             </>
         );
     }

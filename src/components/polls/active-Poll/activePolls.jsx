@@ -1,44 +1,52 @@
 import PrimaryButton from "../../buttons/PrimaryButton";
+import '../Modal.css'
 
 function ActivePolls() {
     let activePolls = localStorage.getItem("polls");
     activePolls !== null ? activePolls = JSON.parse(activePolls) : activePolls = [];
     let applicablePolls = activePolls.filter(poll => poll.userWhoAnswered != sessionStorage.getItem("email"));
-    function updateUserChoice(userChoice) {
-        if (userChoice === 'answer1')
-            applicablePolls[0].options[0].count++
-        else if (userChoice === 'answer2')
-            applicablePolls[0].options[1].count++
-        else
-            applicablePolls[0].options[2].count++
-        applicablePolls[0].totalVotes++;
-        applicablePolls[0].userWhoAnswered = sessionStorage.getItem("email");
+    applicablePolls = applicablePolls.filter(poll => poll.pollStatus === 'Active')
+    function updateUserChoice(optionId, selectedPollId) {
+        activePolls[selectedPollId].options[optionId - 1].count++;
+        activePolls[selectedPollId].totalVotes++;
+        activePolls[selectedPollId].userWhoAnswered = sessionStorage.getItem("email");
         localStorage.setItem("polls", JSON.stringify(activePolls))
     }
-    if (activePolls.length > 0) {
+    if (applicablePolls.length > 0) {
         return (
             <>
-                <div className="navigation">
-                    <ul>
-                        {
-                            applicablePolls.map(poll =>
-                                <>
-                                    <li >{poll.title}</li>
-                                    <li><a className="button is-info is-outlined" onClick={() => { updateUserChoice('answer1') }}>{poll.answer1.value}</a></li>
-                                    <li><a className="button is-info is-outlined" onClick={() => { updateUserChoice('answer2') }}>{poll.answer2.value}</a></li>
-                                    <li><a className="button is-info is-outlined" onClick={() => { updateUserChoice('answer3') }}>{poll.answer3.value}</a></li>
-
-                                </>
-                            )
-                        }
-                    </ul>
-                </div>
+                <div className='popup'>
+                    <div className='popup\_inner'>
+                        <div className="navigation">
+                            <ul>
+                                {
+                                    applicablePolls.map(poll =>
+                                        <li>
+                                            <div>{poll.polltitle} </div>
+                                            {
+                                                poll.options.map(option =>
+                                                    <>
+                                                        <li><a className="button is-info is-outlined" onClick={() => { updateUserChoice(option.id, poll.pollId) }}>{option.value}</a></li>
+                                                    </>
+                                                )
+                                            }
+                                        </li>
+                                    )
+                                }
+                            </ul>
+                        </div>
+                    </div></div>
             </>
         );
     }
     else {
         return (
-            <div> No Active polls at this moment. </div>
+            <>
+                <div className='popup'>
+                    <div className='popup\_inner'>
+                        <div className="text_position"> No Active polls at this moment. </div>
+                    </div></div>
+            </>
         )
     }
 }

@@ -7,62 +7,66 @@ import { useSelector } from 'react-redux';
 import PollForm from '../polls/add-Poll/addPoll'
 import AdminPolls from '../polls/adminView_Poll/AdminViewPolls'
 import PrimaryButton from '../buttons/PrimaryButton';
+import ClosedPolls from '../polls/closed-Polls/ClosedPolls';
+
 
 export default function Admin() {
+  const [adminRequest, setAdminRequest] = useState("Sign In");
   const userLoggedOut = useSelector((state) => state.signOut.state_SignOut);
-  const signUpForm = useSelector((state) => state.signUp.state_SignUpForm);
-  const [addPollRequest, setAddPollrequest] = useState(false);
-  const [chechActivePolls, setCheckActivePolls] = useState(false);
+  let compToRender = null;
   function createPollHandle() {
-    setAddPollrequest(true);
+    setAdminRequest("Add Poll");
   }
   function checkActivePollHandler() {
-    setCheckActivePolls(true);
+    setAdminRequest("Check Active Polls");
   }
-  if (addPollRequest) {
+  function checkClosedPollsHandler() {
+    alert("closed")
+    setAdminRequest("Check Closed Polls");
+  }
+  
+  switch (adminRequest) {
+    case "Add Poll":
+      compToRender = <PollForm />
+      break;
+    case "Check Active Polls":
+      compToRender = <AdminPolls />
+      break;
+    case "Check Closed Polls":
+      compToRender = <ClosedPolls />
+      break;
+    case "Sign In": 
+      compToRender= <SignIn />
+      break;
+    case "Admin Panel":
+      
+    break;
+    default:
+  }
+
+  if(userLoggedOut==null  || adminRequest!="Sign In")
+  {
     return (
-      <>
-        <PollForm />
-      </>
+      compToRender
     )
   }
-  else if (chechActivePolls) {
+  else
+  {
     return (
-      <>
-        <AdminPolls />
-      </>
-    )
-  }
-  else if (userLoggedOut === false && !addPollRequest) {
-    return (
-      <>
-        <div className="center">
-          <div >Welcome to Admin portal</div>
-          <ul>
-            <li>
-              <PrimaryButton text={'Create a poll!'} callBack={createPollHandle} />
-            </li>
-            <li>
-              <PrimaryButton text={'Check Active Polls here'} callBack={checkActivePollHandler} />
-            </li>
-          </ul>
-        </div>
-      </>
+      <div >Welcome to Admin portal
+      <ul>
+        <li>
+          <PrimaryButton text={'Create a poll!'} callBack={createPollHandle} />
+        </li>
+        <li>
+          <PrimaryButton text={'Check Active Polls here'} callBack={checkActivePollHandler} />
+        </li>
+        <li>
+          <PrimaryButton text={'Check Closed Polls here'} callBack={checkClosedPollsHandler} />
+        </li>
+      </ul>
+    </div>
     );
   }
-  else {
-    if (signUpForm) {
-      return (
-        <>
-          <SignUp />
-        </>
-      );
-    }
-    else
-      return (
-        <>
-          <SignIn />
-        </>
-      );
-  }
+ 
 };

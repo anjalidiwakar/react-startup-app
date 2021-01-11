@@ -23,9 +23,13 @@ export default class Users {
         this.password = password;
     }
     setConfirmedPassword(confirmedPassword) {
+        this.assertString(this.password, confirmedPassword);
         this.confirmedPassword = confirmedPassword;
     }
     setRole() {
         this.role = "User";
+    }
+    assertString(input1, input2) {
+        return input1===input2;
     }
 }
