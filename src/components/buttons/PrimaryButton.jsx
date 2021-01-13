@@ -1,6 +1,6 @@
 export default function PrimaryButton(buttonProp) {
     return (
-        <a className="button is-primary" onClick={buttonProp.callBack}>
+        <a className="button is-info" onClick={buttonProp.callBack}>
             {buttonProp.text}
         </a>
     );

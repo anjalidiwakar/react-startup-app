@@ -131,9 +131,7 @@ function Header(props) {
         );
     }
 
-
 }
-
 
 const mapDispatchToProps = (dispatch) => {
     return {

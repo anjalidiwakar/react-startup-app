@@ -1,5 +1,7 @@
 import PrimaryButton from "../../buttons/PrimaryButton";
-import '../Modal.css'
+import '../Modal.css';
+import '../../Common.css';
+import PollStatusAdmin from "../PollStatusAdmin";
 
 function ClosedPolls() {
     let closedPolls = localStorage.getItem("polls");
@@ -8,39 +10,18 @@ function ClosedPolls() {
     if (sessionStorage.getItem("role") === "User")
         applicablePolls = applicablePolls.filter(poll => poll.userWhoAnswered == sessionStorage.getItem("email"));
 
-
     if (applicablePolls.length > 0) {
         return (
             <>
-                <div className='popup'>
-                    <div className='popup\_inner'>
-                        <div className="navigation">
-                            <ul>
-                                {
-                                    applicablePolls.map(poll =>
-                                        <>
-                                            <li >{poll.polltitle}</li>
-                                            {poll.options.map(option =>
-                                                <li><a className="button is-info">{option.value}</a><a>{option.count != 0 ? ((option.count / poll.totalVotes) * 100).toFixed(2) : 0.00}%</a></li>
-                                            )}
-                                        </>
-                                    )
-                                }
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                <PollStatusAdmin polls={applicablePolls} />
             </>
         );
     }
     else {
         return (
             <>
-                <div className='popup'>
-                    <div className='popup\_inner'>
-                        <div> No Closed polls at this moment. </div>
-                    </div>
-                </div>
+                <div> No Closed polls at this moment. </div>
+
             </>
         )
     }

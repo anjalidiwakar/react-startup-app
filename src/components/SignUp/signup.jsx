@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import './SignUp.css';
 import SignIn from '../signIn/SignIn';
 import Users from '../models/User';
+import SuccessNotification from '../feedback/SuccessNotofication';
 
 export default function SignUp() {
     const [firstName, setFirstName] = useState("");
@@ -39,6 +40,7 @@ export default function SignUp() {
             user.setRole();
             users.push(user);
             localStorage.setItem("users", JSON.stringify(users), false);
+            SuccessNotification("Account created successfully !!", '');
         }
     };
     const handleSignIn = () => { setRenderState("SignIn") };

@@ -1,51 +1,50 @@
 import PrimaryButton from "../../buttons/PrimaryButton";
-import '../Modal.css'
+import SuccessNotification from '../../feedback/SuccessNotofication'
+import { Radio, Input } from 'antd';
+import "antd/dist/antd.css";
+import { useState } from "react";
+import PollStatusUser from '../PollStatusUser'
+//import '../Modal.css'
+const radioStyle = {
+    display: 'block',
+    height: '30px',
+    lineHeight: '30px',
+};
+
 
 function ActivePolls() {
+    const [pollOption, setPollOption] = useState();
     let activePolls = localStorage.getItem("polls");
     activePolls !== null ? activePolls = JSON.parse(activePolls) : activePolls = [];
     let applicablePolls = activePolls.filter(poll => poll.userWhoAnswered != sessionStorage.getItem("email"));
+    alert(applicablePolls.length);
     applicablePolls = applicablePolls.filter(poll => poll.pollStatus === 'Active')
+    alert(applicablePolls.length);
+    
     function updateUserChoice(optionId, selectedPollId) {
-        activePolls[selectedPollId].options[optionId - 1].count++;
+        activePolls[selectedPollId].options[optionId].count++;
         activePolls[selectedPollId].totalVotes++;
-        activePolls[selectedPollId].userWhoAnswered = sessionStorage.getItem("email");
-        localStorage.setItem("polls", JSON.stringify(activePolls))
+        activePolls[selectedPollId].userWhoAnswered.push(sessionStorage.getItem("email"));
+        localStorage.setItem("polls", JSON.stringify(activePolls));
+        SuccessNotification('Response submitted successfully', '');
+    }
+
+    const onClickOption = (e) => {
+        alert(e.target.value + "" + pollOption)
+        setPollOption(e.target.value);
+        alert(pollOption)
     }
     if (applicablePolls.length > 0) {
         return (
             <>
-                <div className='popup'>
-                    <div className='popup\_inner'>
-                        <div className="navigation">
-                            <ul>
-                                {
-                                    applicablePolls.map(poll =>
-                                        <li>
-                                            <div>{poll.polltitle} </div>
-                                            {
-                                                poll.options.map(option =>
-                                                    <>
-                                                        <li><a className="button is-info is-outlined" onClick={() => { updateUserChoice(option.id, poll.pollId) }}>{option.value}</a></li>
-                                                    </>
-                                                )
-                                            }
-                                        </li>
-                                    )
-                                }
-                            </ul>
-                        </div>
-                    </div></div>
+            <PollStatusUser polls={applicablePolls}/>
             </>
         );
     }
     else {
         return (
             <>
-                <div className='popup'>
-                    <div className='popup\_inner'>
-                        <div className="text_position"> No Active polls at this moment. </div>
-                    </div></div>
+                <div> No Active polls at this moment. </div>
             </>
         )
     }

@@ -10,14 +10,12 @@ import store from '../redux/store';
 export default function App() {
     return (
         <Provider store={store}>
-            <div>
                 <Header />
                 <Switch>
                     <Route exact path="/" component={HomePage} />
                     <Route path="/admin" component={Admin} />
                     <Route path="/user" component={User} />
                 </Switch>
-            </div>
         </Provider>
     );
 }

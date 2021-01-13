@@ -6,6 +6,7 @@ import SignUp from '../SignUp/Signup';
 import "./SignIn.css";
 import { useHistory } from 'react-router-dom'
 import { signOutUser } from '../../redux/signOut/signOutAction'
+import SuccessNotification from '../feedback/SuccessNotofication'
 
 function SignIn(props) {
     const [email, setEmail] = useState("");
@@ -16,7 +17,6 @@ function SignIn(props) {
         return email.length > 0 && password.length > 0;
     }
     function handleSubmit() {
-        let validationError = ""
         let users = localStorage.getItem("users");
         if (users) {
             users = JSON.parse(users);
@@ -31,14 +31,15 @@ function SignIn(props) {
                     sessionStorage.setItem("role", 'admin');
                 else
                     sessionStorage.setItem("role", user.role);
-                history.push('/' + sessionStorage.getItem("role"))
+                history.push('/' + sessionStorage.getItem("role"));
+                SuccessNotification("Signed in successfullyy !!", '');
             }
             else {
-                validationError = "Password is incorrect, please try again.";
+                SuccessNotification("Password is incorrect, please try again.", '');
             }
         }
         else
-            validationError = "No user found with this email, plrease try with another one";
+        SuccessNotification("No user found with this email, plrease try with another one", '');
 
     }
     const handleSignUp = () => { setRenderState("SignUp") }
@@ -48,7 +49,7 @@ function SignIn(props) {
             <div className="login-wrapper">
                 <p>Please Sign In</p>
                 <div className="field">
-                    <label className="label is-large">Email</label>
+                    <label className="label is-normal">Email</label>
                     <div className="control">
                         <input className="input is-normal" type="email" value={email}
                             onChange={(e) => setEmail(e.target.value)} placeholder="Enter email" />
@@ -62,11 +63,11 @@ function SignIn(props) {
                     </div>
                 </div>
 
-                <Button className="buttons button is-primary" onClick={handleSubmit} type="submit" disabled={!validateForm()}>
+                <Button className="button is-info" onClick={handleSubmit} type="submit" disabled={!validateForm()}>
                     Sign in
             </Button>
                 <p> Do not have an account? Please Sign Up here</p>
-                <Button className="buttons button is-primary" onClick={handleSignUp}>SignUp</Button>
+                <Button className="button is-info" onClick={handleSignUp}>Sign Up</Button>
 
             </div>
         );

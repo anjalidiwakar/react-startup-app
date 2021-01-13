@@ -1,34 +1,24 @@
-import React from 'react';
-
+import React, { useState } from 'react';
+import '../../Common.css';
+import "antd/dist/antd.css";
+import PollStatus from '../PollStatusAdmin'
 function AdminPolls() {
-    
-    let pollData = localStorage.getItem("polls");
+    let pollData = localStorage.getItem("polls"), activePols;
     pollData != null ? pollData = JSON.parse(pollData) : pollData = [];
+    activePols = pollData.filter(poll => poll.pollStatus === "Active");
+    const [polls, setPollData] = useState(activePols);
+
     function closePoll(pollId) {
-        pollData.filter(p => p.pollId == pollId)[0].pollStatus = 'Closed';
-        // for (let i = 0; i < pollData.length; i++) {
-        //     pollData[i].pollId = i;
-        // }
+        let closedPoll = pollData.find(poll => poll.pollId == pollId);
+        closedPoll.pollStatus = 'Closed';
+        pollData[pollId] = closedPoll;
         localStorage.setItem("polls", JSON.stringify(pollData));
+        activePols = pollData.filter(poll => poll.pollStatus === "Active");
+        setPollData(activePols);
     }
-    if (pollData.length > 0)
+    if (polls.length > 0)
         return (
-            <>
-                <div className="navigation">
-                    <ul>
-                        {
-                            pollData.map(poll =>
-                                <>
-                                    <li >{poll.polltitle}</li> <a  className="button is-primary" onClick={() => closePoll(poll.pollId)}>Close this poll</a>
-                                    {poll.options.map(option =>
-                                        <li><a className="button is-info is-outlined">{option.value}</a><a>{option.count != 0 ? ((option.count / poll.totalVotes) * 100).toFixed(2) : 0.00}%</a></li>
-                                    )}
-                                </>
-                            )
-                        }
-                    </ul>
-                </div>
-            </>
+            <PollStatus polls={polls} callBack={closePoll} />
         )
     else
         return (

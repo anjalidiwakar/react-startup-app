@@ -7,8 +7,9 @@ export default class Poll {
     answer1 = { value: "", count: 0 };
     // answer2 = { value: "", count: 0 };
     // answer3 = { value: "", count: 0 };
-    userWhoAnswered = "";
+    userWhoAnswered = [];
     pollStatus;
+
     constructor() { }
 
     setTitle(polltitle) {
@@ -50,6 +51,7 @@ export default class Poll {
 }
 
 export class Answers {
-    value="";
-    count=0;
+    value = "";
+    count = 0;
+    isSelected = false;
 }
