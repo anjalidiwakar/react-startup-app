@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../../Common.css';
 import "antd/dist/antd.css";
-import PollStatus from '../PollStatusAdmin'
+import PollStatus from '../PollStatus'
 function AdminPolls() {
     let pollData = localStorage.getItem("polls"), activePols;
     pollData != null ? pollData = JSON.parse(pollData) : pollData = [];
@@ -9,7 +9,7 @@ function AdminPolls() {
     const [polls, setPollData] = useState(activePols);
 
     function closePoll(pollId) {
-        let closedPoll = pollData.find(poll => poll.pollId == pollId);
+        let closedPoll = pollData.find(poll => poll.pollId === pollId);
         closedPoll.pollStatus = 'Closed';
         pollData[pollId] = closedPoll;
         localStorage.setItem("polls", JSON.stringify(pollData));
@@ -18,7 +18,7 @@ function AdminPolls() {
     }
     if (polls.length > 0)
         return (
-            <PollStatus polls={polls} callBack={closePoll} />
+            <PollStatus polls={polls} closePollCallBack={closePoll} isActivePoll={true} isUserActivePollRequest={false} />
         )
     else
         return (

@@ -16,7 +16,7 @@ export default function Admin() {
   const [adminRequest, setAdminRequest] = useState("Sign In");
   const [createPoll, setCreatePoll] = useState(false);
   const userLoggedOut = useSelector((state) => state.signOut.state_SignOut);
-  const [compToRender, setCompRenderer] = useState(<SignIn />);
+  const [compToRender, setCompRenderer] = useState();
 
 
   function HandleCancel() {
@@ -39,9 +39,11 @@ export default function Admin() {
     }
   }
 
-  if (userLoggedOut == null || adminRequest != "Sign In") {
+  if (userLoggedOut === null || adminRequest != "Sign In") {
     return (
-      compToRender
+      <>
+        <SignIn />
+      </>
     )
   }
   else {
@@ -55,7 +57,7 @@ export default function Admin() {
               defaultSelectedKeys={['1']}
               defaultOpenKeys={['pollMenu']}
               mode="inline">
-              <SubMenu key="pollMenu"  title="Polls">
+              <SubMenu key="pollMenu" title="Polls">
                 <Menu.Item key="1">Create poll</Menu.Item>
                 <SubMenu title="Check Status">
                   <Menu.Item key="2">Active Polls</Menu.Item>
@@ -76,10 +78,10 @@ export default function Admin() {
             footer={[
             ]}
           >
-            {createPoll == true && <PollForm close={setCreatePoll} />}
+            {createPoll === true && <PollForm close={setCreatePoll} />}
           </Modal>
-          { userLoggedOut == false && createPoll == false &&  <div className="right">{compToRender}</div> }
-  
+          {userLoggedOut === false && createPoll === false && <div className="right">{compToRender}</div>}
+
         </div>
       </>
     );

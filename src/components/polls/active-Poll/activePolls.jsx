@@ -3,7 +3,7 @@ import SuccessNotification from '../../feedback/SuccessNotofication'
 import { Radio, Input } from 'antd';
 import "antd/dist/antd.css";
 import { useState } from "react";
-import PollStatusUser from '../PollStatusUser'
+import PollStatus from '../PollStatus'
 //import '../Modal.css'
 const radioStyle = {
     display: 'block',
@@ -14,18 +14,17 @@ const radioStyle = {
 
 function ActivePolls() {
     const [pollOption, setPollOption] = useState();
-    let activePolls = localStorage.getItem("polls");
-    activePolls !== null ? activePolls = JSON.parse(activePolls) : activePolls = [];
-    let applicablePolls = activePolls.filter(poll => poll.userWhoAnswered != sessionStorage.getItem("email"));
-    alert(applicablePolls.length);
+    let polls = localStorage.getItem("polls");
+    polls !== null ? polls = JSON.parse(polls) : polls = [];
+    let applicablePolls = polls.filter(poll => poll.userWhoAnswered != sessionStorage.getItem("email"));
     applicablePolls = applicablePolls.filter(poll => poll.pollStatus === 'Active')
-    alert(applicablePolls.length);
-    
+
     function updateUserChoice(optionId, selectedPollId) {
-        activePolls[selectedPollId].options[optionId].count++;
-        activePolls[selectedPollId].totalVotes++;
-        activePolls[selectedPollId].userWhoAnswered.push(sessionStorage.getItem("email"));
-        localStorage.setItem("polls", JSON.stringify(activePolls));
+        polls[selectedPollId].options[optionId].count++;
+        polls[selectedPollId].totalVotes++;
+        polls[selectedPollId].userWhoAnswered.push(sessionStorage.getItem("email"));
+        localStorage.setItem("polls", JSON.stringify(polls));
+        applicablePolls = applicablePolls.filter(poll => poll.userWhoAnswered != sessionStorage.getItem("email"));
         SuccessNotification('Response submitted successfully', '');
     }
 
@@ -37,7 +36,7 @@ function ActivePolls() {
     if (applicablePolls.length > 0) {
         return (
             <>
-            <PollStatusUser polls={applicablePolls}/>
+                <PollStatus polls={applicablePolls} isUserActivePollRequest={true} isActivePoll={false} submitChoice={updateUserChoice} />
             </>
         );
     }

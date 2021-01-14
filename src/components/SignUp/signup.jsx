@@ -16,7 +16,7 @@ export default function SignUp() {
     let emailExistsFlag = false;
     function checkIfEmailExists(email) {
         let users = localStorage.getItem("users");
-        users !== null ? users = JSON.parse(users) : users = [];
+        users !==  null ? users = JSON.parse(users) : users = [];
         if (users.length > 0) {
             let user = users.find(u => u.email === email);
             if (user)
@@ -29,7 +29,7 @@ export default function SignUp() {
         if (emailExistsFlag === false) {
             setRenderState("SignedUp");
             let users = localStorage.getItem("users");
-            users !== null ? users = JSON.parse(users) : users = [];
+            users !==  null ? users = JSON.parse(users) : users = [];
             let user = new Users();
             user.setFirstName(firstName);
             user.setLastName(lastName);
