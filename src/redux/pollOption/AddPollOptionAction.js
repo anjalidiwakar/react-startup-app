@@ -1,6 +1,7 @@
-import { ADD_POLL_OPTION } from '../actionTypes'
-export const addPollOption = () => {
+import { POLL_OPTIONS } from '../actionTypes'
+export const AddPollOptions = (prop) => {
     return {
-        type: ADD_POLL_OPTION
+        type: POLL_OPTIONS,
+        state: prop
     }
 }

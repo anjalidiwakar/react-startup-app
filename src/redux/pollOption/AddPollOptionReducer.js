@@ -1,17 +1,24 @@
-import { ADD_POLL_OPTION } from '../actionTypes';
+import { POLL_OPTIONS } from '../actionTypes';
+
+function getOptionsFromLocalStorage() {
+    let optionList = localStorage.getItem("optionList");
+    optionList !== null ? optionList = JSON.parse(optionList) : optionList = [];
+    return optionList;
+}
+let optionList =  getOptionsFromLocalStorage();
 const initialState = {
-    extraOptionCount: 0
+    state_optionList: optionList
 }
 
-const addPollOptionReducer = (state = initialState, action) => {
+const AddPollOptionReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_POLL_OPTION: return {
+        case POLL_OPTIONS: return {
             ...state,
-            extraOptionCount: state.extraOptionCount + 1
+            state_optionList: action.state
         }
             break
         default: return state;
     }
 }
 
-export default addPollOptionReducer;
+export default AddPollOptionReducer;

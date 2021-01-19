@@ -6,19 +6,18 @@ import { useSelector } from 'react-redux';
 import PollForm from '../polls/add-Poll/AddPollContainer'
 import AdminPolls from '../polls/adminView_Poll/AdminViewPolls'
 import ClosedPolls from '../polls/closed-Polls/ClosedPolls';
-import { Modal, Tabs, Menu } from 'antd';
+import { Modal, Menu } from 'antd';
 import "antd/dist/antd.css";
 import '../Common.css';
 
 const { SubMenu } = Menu;
 
-export default function Admin() {
+function Admin(props) {
   const [adminRequest, setAdminRequest] = useState("Sign In");
   const [createPoll, setCreatePoll] = useState(false);
   const userLoggedOut = useSelector((state) => state.signOut.state_SignOut);
   const [compToRender, setCompRenderer] = useState();
-
-
+ 
   function HandleCancel() {
     setCreatePoll(false);
   };
@@ -27,6 +26,7 @@ export default function Admin() {
     switch (clickHandler.key) {
       case "1":
         setCreatePoll(true);
+        setCompRenderer(null);
         break;
       case "2":
         setCompRenderer(<AdminPolls />);
@@ -72,7 +72,7 @@ export default function Admin() {
           </div>
           <Modal className="padding"
             visible={createPoll}
-            title="Title"
+            title="Create a Poll"
             onOk={HandleCancel}
             onCancel={HandleCancel}
             footer={[
@@ -86,5 +86,6 @@ export default function Admin() {
       </>
     );
   }
+}
 
-};
+export default Admin;

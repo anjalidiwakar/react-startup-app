@@ -4,10 +4,11 @@ import SignIn from '../signIn/SignIn';
 import PrimaryButton from '../buttons/PrimaryButton';
 import ActivePolls from '../polls/active-Poll/ActivePolls'
 import ClosedPolls from '../polls/closed-Polls/ClosedPolls'
-import { Modal, Button, notification, Tabs, Menu } from 'antd';
+import { Tabs, Menu } from 'antd';
 import './User.css'
 import "antd/dist/antd.css";
 import '../Common.css';
+
 const { SubMenu } = Menu;
 
 const { TabPane } = Tabs;

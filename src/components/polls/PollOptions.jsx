@@ -1,13 +1,25 @@
 import React from 'react'
 
 function PollOptions(props) {
-
     return (
         <>
             {
-                props.pollData.options.map(option =>
-                    <li><span >{option.value}</span>&nbsp;&nbsp;&nbsp;
-                    <a>{option.count != 0 ? ((option.count / props.pollData.totalVotes) * 100).toFixed(2) : 0.00}%</a></li>
+                props.pollQueData.map((q, index) =>
+                    <div key={index}>
+                        <h2 >{index + 1}.&nbsp;{q.que.queTitle}</h2>
+                        {
+                            q.optionInfo.map(op => {
+                                return (
+                                    <>
+                                        <li><span >{op.value}</span>&nbsp;&nbsp;&nbsp;
+                                        <a>{op.count != 0 ? ((op.count / q.que.totalSubmissions) * 100).toFixed(2) : 0.00}%</a></li>
+                                    </>
+                                )
+                            })
+                        }
+
+                        <br />
+                    </div>
                 )
             }
         </>

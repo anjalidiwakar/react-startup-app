@@ -1,24 +1,29 @@
 import '../Modal.css';
 import '../../Common.css';
-import PollStatusAdmin from "../PollStatus";
+import PollStatus from "../PollStatus";
+import { useSelector } from 'react-redux';
 
 function ClosedPolls() {
 
-    let polls = localStorage.getItem("polls");
-    polls !== null ? polls = JSON.parse(polls) : polls = [];
-    let closedPolls = polls.filter(poll => poll.pollStatus === 'Closed');
-    let applicablePolls = closedPolls;
-    for (let i = 0; i < closedPolls.length; i++) {
-        let submittedPoll = closedPolls[i].userWhoAnswered.find(p => p === sessionStorage.getItem("email"));
-        if (submittedPoll === undefined) {
-            applicablePolls = applicablePolls.filter(p => p.pollId !== closedPolls[i].pollId);
+    const filterPolls = (applicablePolls) => {
+        for (let i = 0; i < applicablePolls.length; i++) {
+            let submittedPoll = applicablePolls[i].pollInfo.userList.find(p => p === sessionStorage.getItem("email"));
+            if (submittedPoll === undefined) {
+                applicablePolls = applicablePolls.filter(p => p.pollInfo.pollTitle !== applicablePolls[i].pollInfo.pollTitle);
+            }
         }
+        return applicablePolls;
     }
+    const polls = useSelector((state) => state.createPoll.state_pollData);
+    let markedClosed = polls.filter(poll => poll.pollInfo.pollStatus === 'Closed');
+    let applicablePolls = markedClosed;
+    if (sessionStorage.getItem("role") === 'User')
+        markedClosed = filterPolls(applicablePolls);
 
     if (applicablePolls.length > 0) {
         return (
             <>
-                <PollStatusAdmin polls={applicablePolls} isActivePoll={false} isUserActivePollRequest={false} />
+                <PollStatus pollData={markedClosed} isActivePoll={false} isUserActivePollRequest={false} />
             </>
         );
     }

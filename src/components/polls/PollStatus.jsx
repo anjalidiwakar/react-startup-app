@@ -6,11 +6,11 @@ import UserPollInput from '../polls/PollInputUser'
 const { Panel } = Collapse;
 
 function PollStatusAdmin(props) {
-    const getCloseIcon = (pollId) => (
-        <> Close poll &nbsp;
+    const getCloseIcon = (pollIndex, pollId) => (
+        <> Close Poll&nbsp;
             <CloseCircleFilled
                 onClick={event => {
-                    props.closePollCallBack(pollId);
+                    props.closePollCallBack(pollIndex, pollId);
                 }}
             />
         </>
@@ -19,12 +19,14 @@ function PollStatusAdmin(props) {
     return (
         <ul>
             {
-                props.polls.map((poll, index) =>
-                    <Collapse >
-                        <Panel header={poll.polltitle} key={index} extra={props.isActivePoll && getCloseIcon(poll.pollId)}>
+                props.pollData.map((poll, pollIndex) =>
+                    <Collapse key={pollIndex}>
+                        <Panel header={poll.pollInfo.pollTitle} extra={props.isActivePoll && getCloseIcon(pollIndex, poll.pollInfo.pollId)}>
                             <p>
-                                {!props.isUserActivePollRequest && <PollOptions pollData={poll} />}
-                                {props.isUserActivePollRequest && <UserPollInput pollData={poll} submitChoiceCallBack={props.submitChoice} />}
+                                {!props.isUserActivePollRequest && <PollOptions pollQueData={poll.quesInfo} />}
+                                {props.isUserActivePollRequest &&
+                                    <UserPollInput pollQueData={poll.quesInfo} pollIndex={pollIndex} pollId={poll.pollInfo.pollId}
+                                        submitChoiceCallBack={props.submitChoice} />}
                             </p>
 
                         </Panel>

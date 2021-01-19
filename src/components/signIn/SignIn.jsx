@@ -1,18 +1,21 @@
 
-import React, { useState } from "react";
-import { connect } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { connect, useDispatch } from 'react-redux';
 import Button from "react-bootstrap/Button";
 import SignUp from '../SignUp/Signup';
 import "./SignIn.css";
 import { useHistory } from 'react-router-dom'
-import { signOutUser } from '../../redux/signOut/signOutAction'
-import SuccessNotification from '../feedback/SuccessNotofication'
+import { signOutUser } from '../../redux/signOut/signOutAction';
+import SuccessNotification from '../feedback/SuccessNotofication';
+import { CreatePollAction } from '../../redux/polls/AddPollAction';
+import { AddPollOptions } from '../../redux/pollOption/AddPollOptionAction';
 
 function SignIn(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [renderState, setRenderState] = useState("");
     const history = useHistory();
+    
     function validateForm() {
         return email.length > 0 && password.length > 0;
     }

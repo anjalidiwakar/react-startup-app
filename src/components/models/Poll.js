@@ -1,28 +1,19 @@
-export default class Poll {
-    polltitle;
-    description;
-    totalVotes = 0;
-    options = [];
+export default class PollList {
+
+    pollTitle;
     pollId;
-    answer1 = { value: "", count: 0 };
-    // answer2 = { value: "", count: 0 };
-    // answer3 = { value: "", count: 0 };
     userWhoAnswered = [];
     pollStatus;
-
+    questionList = [];
     constructor() { }
 
-    setTitle(polltitle) {
-        this.polltitle = polltitle
+    setQuestionList(list) {
+        this.questionList = list;
     }
-    setDescription(description) {
-        this.description = description
+    setpollTitle(title) {
+        this.pollTitle = title;
     }
-    setAnswer(optionsList) {
-        // let answer = new Answers();
-        // answer.value=userOption;
-        this.options = optionsList;
-    }
+    
     // setAnswer1(answer1) {
     //     this.answer1.value = answer1
     //     this.answer1.count = 0
@@ -38,20 +29,20 @@ export default class Poll {
     //     this.answer3.count = 0
     //     this.options.push(this.answer3)
     // }
+    
     setPollId(pollId) {
         this.pollId = pollId
-    }
-    setLastName(questionList) {
-        this.q = questionList;
     }
     setPollStatus(status) {
         this.pollStatus = status
     }
+    setTotalVotes
 
 }
 
 export class Answers {
     value = "";
     count = 0;
+    optionId;
     isSelected = false;
 }

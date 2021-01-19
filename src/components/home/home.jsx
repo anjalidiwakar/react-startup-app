@@ -1,4 +1,3 @@
-import { render } from '@testing-library/react';
 import React from 'react';
 import '../Common.css';
 import SignIn from '../signIn/SignIn';

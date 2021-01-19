@@ -1,24 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../Common.css';
 import "antd/dist/antd.css";
 import PollStatus from '../PollStatus'
-function AdminPolls() {
-    let pollData = localStorage.getItem("polls"), activePols;
-    pollData != null ? pollData = JSON.parse(pollData) : pollData = [];
-    activePols = pollData.filter(poll => poll.pollStatus === "Active");
-    const [polls, setPollData] = useState(activePols);
+import { useDispatch, useSelector } from 'react-redux';
+import { UpdatePollAction } from '../../../redux/polls/UpdatePollAction';
 
-    function closePoll(pollId) {
-        let closedPoll = pollData.find(poll => poll.pollId === pollId);
-        closedPoll.pollStatus = 'Closed';
-        pollData[pollId] = closedPoll;
-        localStorage.setItem("polls", JSON.stringify(pollData));
-        activePols = pollData.filter(poll => poll.pollStatus === "Active");
+
+function AdminPolls() {
+    const dispatch = useDispatch();
+    const pollData = useSelector((state) => state.createPoll.state_pollData);
+    const [reduxPolls, setReduxPolls] = useState(pollData);
+    let storePolls = reduxPolls;
+    let activePols = pollData.filter(poll => poll.pollInfo.pollStatus === "Active");
+    const [polls, setPollData] = useState(activePols);
+    const [updatePollsToRedux, setReduxFlag] = useState(false);
+    let closedPoll = pollData;
+    const closePoll = (pollIndex, pollId) => {
+        closedPoll[pollIndex].pollInfo.pollStatus = 'Closed';
+        storePolls[pollId - 1].pollInfo.pollStatus = 'Closed';
+        setReduxPolls(storePolls);
+        activePols = closedPoll.filter(poll => poll.pollInfo.pollStatus === "Active");
         setPollData(activePols);
+        setReduxFlag(!updatePollsToRedux);
     }
+    useEffect(() => { dispatch(UpdatePollAction(reduxPolls)) }, [updatePollsToRedux]);
     if (polls.length > 0)
         return (
-            <PollStatus polls={polls} closePollCallBack={closePoll} isActivePoll={true} isUserActivePollRequest={false} />
+            <PollStatus pollData={polls} closePollCallBack={closePoll} isActivePoll={true} isUserActivePollRequest={false} />
         )
     else
         return (
