@@ -5,17 +5,18 @@ import '../Common.css';
 import './Header.css';
 import { showSignInForm } from '../../redux/signIn/signInAction'
 import { showSignUpForm } from '../../redux/signUp/signUpAction'
-import { signOutUser } from '../../redux/signOut/signOutAction'
+import { userSignedIn } from '../../redux/signOut/userLoggedAction'
 
 function Header(props) {
-    let users = localStorage.getItem("users"), user;
+    let users = localStorage.getItem("users");
     if (users) {
         users = JSON.parse(users);
     }
-    let userSignedOut = useSelector((state) => state.signOut.state_SignOut)
+    const isLoggedIn = useSelector((state) => state.checkLogin.state_User_Logged_In);
+    let user = sessionStorage.getItem("email");
     function signOutUser() {
         sessionStorage.removeItem("email");
-        props.signOutUser(true);
+        props.userLoggedIn(false);
     }
     function signUpHandle() {
         props.showSignIn(false);
@@ -26,7 +27,7 @@ function Header(props) {
         props.showSignIn(true);
     }
    
-    if (userSignedOut === false) {
+    if (isLoggedIn === true) {
         user = users.find(u => u.email === sessionStorage.getItem("email"));
         return (
             <nav className="navbar" role="navigation" aria-label="main navigation">
@@ -137,7 +138,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         showSignIn: (state) => dispatch(showSignInForm(state)),
         showSignUp: (state) => dispatch(showSignUpForm(state)),
-        signOutUser: (state) => dispatch(signOutUser(state))
+        userLoggedIn: (state) => dispatch(userSignedIn(state))
     }
 }
 export default connect(undefined, mapDispatchToProps)(Header)

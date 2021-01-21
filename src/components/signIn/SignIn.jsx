@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import SignUp from '../SignUp/Signup';
 import "./SignIn.css";
 import { useHistory } from 'react-router-dom'
-import { signOutUser } from '../../redux/signOut/signOutAction';
+import { userSignedIn } from '../../redux/signOut/userLoggedAction';
 import SuccessNotification from '../feedback/SuccessNotofication';
 import { CreatePollAction } from '../../redux/polls/AddPollAction';
 import { AddPollOptions } from '../../redux/pollOption/AddPollOptionAction';
@@ -27,7 +27,7 @@ function SignIn(props) {
         let user = users.find(t => t.email === email);
         if (user) {
             if (user.password === password) {
-                props.signOutUser(false);
+                props.signInUser(true);
                 sessionStorage.setItem("email", email);
                 sessionStorage.setItem("password", password);
                 if (email === "anjali.diwakar@talentica.com")
@@ -87,7 +87,7 @@ function SignIn(props) {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        signOutUser: (state) => dispatch(signOutUser(state))
+        signInUser: (state) => dispatch(userSignedIn(state))
     }
 }
 export default connect(undefined, mapDispatchToProps)(SignIn)

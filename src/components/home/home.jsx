@@ -2,14 +2,13 @@ import React from 'react';
 import '../Common.css';
 import SignIn from '../signIn/SignIn';
 import SignUp from '../SignUp/Signup';
-import User from "../user/User";
+import  User  from "../user/User";
+import Admin from '../admin/Admin';
 import { useSelector } from 'react-redux'
 
 export default function HomePage(props) {
-  let userSignedIn = false;
-  if (sessionStorage.getItem("email") != null) {
-    userSignedIn = true;
-  }
+  const isLoggedIn = useSelector((state) => state.checkLogin.state_User_Logged_In);
+  let role = sessionStorage.getItem("role");
   let signinToken = useSelector((state) => state.signIn.state_SignInForm)
   let signupToken = useSelector((state) => state.signUp.state_SignUpForm)
   if (signinToken) {
@@ -24,17 +23,18 @@ export default function HomePage(props) {
     return (
       <div className="wrapper">
         Welcome to Home Page
-        <SignUp />
+       <SignUp />
       </div>
     );
   }
-  else if (userSignedIn) {
-    return (
-      <div className="wrapper">
-        <User />
-      </div>
-    );
-  }
+  // else if (isLoggedIn) {
+  //   return (
+  //     <div className="wrapper">
+  //        { role==="User" && <User /> }
+  //        { role==="Admin" && <Admin /> }
+  //     </div>
+  //   );
+  // }
   else {
     return (
       <div className="wrapper">

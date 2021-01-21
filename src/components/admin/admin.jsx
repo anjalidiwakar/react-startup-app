@@ -15,9 +15,11 @@ const { SubMenu } = Menu;
 function Admin(props) {
   const [adminRequest, setAdminRequest] = useState("Sign In");
   const [createPoll, setCreatePoll] = useState(false);
-  const userLoggedOut = useSelector((state) => state.signOut.state_SignOut);
+  //const userLoggedOut = useSelector((state) => state.signOut.state_User_Logged_In);
   const [compToRender, setCompRenderer] = useState();
- 
+  const isLoggedIn = useSelector((state) => state.checkLogin.state_User_Logged_In);
+  const role = sessionStorage.getItem("role");
+
   function HandleCancel() {
     setCreatePoll(false);
   };
@@ -39,7 +41,8 @@ function Admin(props) {
     }
   }
 
-  if (userLoggedOut === null || adminRequest != "Sign In") {
+  if (isLoggedIn !==true || role !=="Admin") {
+    console.log(role !=="Admin")
     return (
       <>
         <SignIn />
@@ -47,6 +50,7 @@ function Admin(props) {
     )
   }
   else {
+    console.log(role !=="Admin")
     return (
       <>
         <div className="container">
@@ -80,7 +84,7 @@ function Admin(props) {
           >
             {createPoll === true && <PollForm close={setCreatePoll} />}
           </Modal>
-          {userLoggedOut === false && createPoll === false && <div className="right">{compToRender}</div>}
+          {isLoggedIn !== false && createPoll === false && <div className="right">{compToRender}</div>}
 
         </div>
       </>

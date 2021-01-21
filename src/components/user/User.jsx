@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { connect, useSelector }from 'react-redux';
 import SignIn from '../signIn/SignIn';
 import PrimaryButton from '../buttons/PrimaryButton';
 import ActivePolls from '../polls/active-Poll/ActivePolls'
@@ -11,63 +11,78 @@ import '../Common.css';
 
 const { SubMenu } = Menu;
 
-const { TabPane } = Tabs;
-
-export default function User() {
-
-  const [userRequest, setUserRequest] = useState("Sign In");
-  const userLoggedOut = useSelector((state) => state.signOut.state_SignOut);
-  const [compToRender, setCompRenderer] = useState();
-
-  function handleClick(clickHandler) {
+ class User extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userRequest : "Sign In",
+      compToRender : null,
+      role : sessionStorage.getItem("role")
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+   handleClick(clickHandler) {
     switch (clickHandler.key) {
       case "1":
-        setCompRenderer(<ActivePolls />);
+        this.setState({ compToRender:<ActivePolls /> });
+        console.log(this.state.compToRender)
         break;
       case "2":
-        setCompRenderer(<ClosedPolls />);
+        this.setState({compToRender:<ClosedPolls />})
         break;
       default:
         break;
     }
   }
 
-  if (userLoggedOut === null || userRequest != "Sign In") {
+  render() {
+    if(this.props.ifLoggedIn.state_User_Logged_In!==true || this.state.role!=="User") { 
     return (
-      <>
+      <>    
         <SignIn />
       </>
-    )
+    ) 
   }
-  else {
-    return (
-      <>
-        <div className="container">
-          <div className="left">
-            <Menu
-              onClick={handleClick}
-              style={{ width: 256 }}
-              defaultSelectedKeys={['1']}
-              defaultOpenKeys={['pollMenu']}
-              mode="inline">
-              <SubMenu key="employeeMenu" title="My Profile">
-                <Menu.Item key="3">Personal Details</Menu.Item>
-                <Menu.Item key="4">Team</Menu.Item>
-              </SubMenu>
-              <SubMenu key="pollMenu" title="Polls">
-                <SubMenu title="Check Status">
-                  <Menu.Item key="1">Active Polls</Menu.Item>
-                  <Menu.Item key="2">Closed Polls</Menu.Item>
+
+    else {
+      return (
+        <>
+          <div className="container">
+            <div className="left">
+              <Menu
+                onClick={this.handleClick}
+                style={{ width: 256 }}
+                defaultSelectedKeys={['1']}
+                defaultOpenKeys={['pollMenu']}
+                mode="inline">
+                <SubMenu key="employeeMenu" title="My Profile">
+                  <Menu.Item key="3">Personal Details</Menu.Item>
+                  <Menu.Item key="4">Team</Menu.Item>
                 </SubMenu>
-              </SubMenu>
-            </Menu>
+                <SubMenu key="pollMenu" title="Polls">
+                  <SubMenu title="Check Status">
+                    <Menu.Item key="1">Active Polls</Menu.Item>
+                    <Menu.Item key="2">Closed Polls</Menu.Item>
+                  </SubMenu>
+                </SubMenu>
+              </Menu>
+            </div>
+  
+            {this.props.ifLoggedIn.state_User_Logged_In === true && <div className="right">{this.state.compToRender}</div>}
+  
           </div>
+        </>
+      );
+  }
+  } 
+}
 
-          {userLoggedOut === false && <div className="right">{compToRender}</div>}
-
-        </div>
-      </>
-    );
+const mapStateToProps = (state) => {
+  return {
+    ifLoggedIn : state.checkLogin,
+    
   }
 }
+
+export default connect(mapStateToProps, undefined)(User);
 
