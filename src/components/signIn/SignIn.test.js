@@ -8,7 +8,6 @@ describe("connected reatc-redux", () => {
     let store, component;
     beforeEach(() => {
         store = mockStore({
-        // myState: 'sample text',
     });
     store.dispatch = jest.fn();
     component = renderer.create(
