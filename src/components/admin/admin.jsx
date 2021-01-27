@@ -42,7 +42,6 @@ function Admin(props) {
   }
 
   if (isLoggedIn !==true || role !=="Admin") {
-    console.log(role !=="Admin")
     return (
       <>
         <SignIn />

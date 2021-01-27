@@ -12,7 +12,7 @@ function Header(props) {
     if (users) {
         users = JSON.parse(users);
     }
-    const isLoggedIn = useSelector((state) => state.checkLogin.state_User_Logged_In);
+    const isLoggedIn = useSelector((state) => state.checkLogin.state_User_Logged_In);                    
     let user = sessionStorage.getItem("email");
     function signOutUser() {
         sessionStorage.removeItem("email");

@@ -1,0 +1,139 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`connected reatc-redux  1`] = `
+<div
+  className="login-wrapper"
+>
+  <p>
+    Please Sign In
+  </p>
+  <div
+    className="field"
+  >
+    <label
+      className="label is-normal"
+    >
+      Email
+    </label>
+    <div
+      className="control"
+    >
+      <input
+        className="input is-normal"
+        onChange={[Function]}
+        placeholder="Enter email"
+        type="email"
+        value=""
+      />
+    </div>
+  </div>
+  <div
+    className="field"
+  >
+    <label
+      className="label is-normal"
+    >
+      Password
+    </label>
+    <div
+      className="control"
+    >
+      <input
+        className="input is-normal"
+        onChange={[Function]}
+        placeholder="Enter password"
+        type="password"
+        value=""
+      />
+    </div>
+  </div>
+  <button
+    className="button is-info btn btn-primary"
+    disabled={true}
+    onClick={[Function]}
+    type="submit"
+  >
+    Sign in
+  </button>
+  <p>
+     Do not have an account? Please Sign Up here
+  </p>
+  <button
+    className="button is-info btn btn-primary"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    Sign Up
+  </button>
+</div>
+`;
+
+exports[`connected reatc-redux should render with given state from Redux store 1`] = `
+<div
+  className="login-wrapper"
+>
+  <p>
+    Please Sign In
+  </p>
+  <div
+    className="field"
+  >
+    <label
+      className="label is-normal"
+    >
+      Email
+    </label>
+    <div
+      className="control"
+    >
+      <input
+        className="input is-normal"
+        onChange={[Function]}
+        placeholder="Enter email"
+        type="email"
+        value=""
+      />
+    </div>
+  </div>
+  <div
+    className="field"
+  >
+    <label
+      className="label is-normal"
+    >
+      Password
+    </label>
+    <div
+      className="control"
+    >
+      <input
+        className="input is-normal"
+        onChange={[Function]}
+        placeholder="Enter password"
+        type="password"
+        value=""
+      />
+    </div>
+  </div>
+  <button
+    className="button is-info btn btn-primary"
+    disabled={true}
+    onClick={[Function]}
+    type="submit"
+  >
+    Sign in
+  </button>
+  <p>
+     Do not have an account? Please Sign Up here
+  </p>
+  <button
+    className="button is-info btn btn-primary"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    Sign Up
+  </button>
+</div>
+`;
